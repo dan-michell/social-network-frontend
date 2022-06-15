@@ -35,6 +35,7 @@ export default class Networking {
   }
 
   async postVote(id, voteData) {
+    console.log(id, voteData);
     try {
       const response = await fetch(`http://localhost:8080/stories/${id}/votes`, {
         method: "POST",
@@ -136,7 +137,6 @@ export default class Networking {
         throw new Error("Unable to fetch comments");
       }
       const json = await response.json();
-      console.log(json);
       return json;
     } catch (error) {
       console.log(error);

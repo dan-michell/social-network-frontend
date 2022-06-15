@@ -1,24 +1,20 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Networking from '../networking'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Networking from "../networking";
 
 function RegisterForm(props) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConformation, setPasswordConformation] = useState('')
-  const [registerResponse, setRegisterResponse] = useState('')
-  const [showResponse, setShowResponse] = useState(false)
-  const networking = new Networking()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConformation, setPasswordConformation] = useState("");
+  const [registerResponse, setRegisterResponse] = useState("");
+  const [showResponse, setShowResponse] = useState(false);
+  const networking = new Networking();
 
   async function handleUserSubmit(e) {
-    e.preventDefault()
-    const registerResponseInfo = await networking.registerUser(
-      email,
-      password,
-      passwordConformation
-    )
-    setRegisterResponse(registerResponseInfo)
-    setShowResponse(true)
+    e.preventDefault();
+    const registerResponseInfo = await networking.registerUser(email, password, passwordConformation);
+    setRegisterResponse(registerResponseInfo);
+    setShowResponse(true);
   }
 
   return (
@@ -56,7 +52,7 @@ function RegisterForm(props) {
             placeholder=" "
             required
             onChange={(e) => {
-              setEmail(e.target.value)
+              setEmail(e.target.value);
             }}
           />
           <label
@@ -77,7 +73,7 @@ function RegisterForm(props) {
               placeholder=" "
               required
               onChange={(e) => {
-                setPassword(e.target.value)
+                setPassword(e.target.value);
               }}
             />
             <label
@@ -97,7 +93,7 @@ function RegisterForm(props) {
               placeholder=" "
               required
               onChange={(e) => {
-                setPasswordConformation(e.target.value)
+                setPasswordConformation(e.target.value);
               }}
             />
             <label
@@ -121,12 +117,12 @@ function RegisterForm(props) {
               <p className="text-gray-200 text-sm ml-5">{registerResponse}</p>
             </div>
           ) : (
-            ''
+            ""
           )}
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default RegisterForm
+export default RegisterForm;

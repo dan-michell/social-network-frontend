@@ -1,45 +1,47 @@
-import { useState, useEffect } from 'react'
-import Comment from './Comment'
-import Networking from '../networking.js'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import Comment from "./Comment";
+import Networking from "../networking.js";
+import { useNavigate } from "react-router-dom";
 
 function Comments(props) {
-  const [openComments, setOpenComments] = useState(false)
-  const [comment, setComment] = useState('')
-  const [comments, setComments] = useState([])
-  const [redirect, setRedirect] = useState(undefined)
-  const networking = new Networking()
-  const navigate = useNavigate()
+  const [openComments, setOpenComments] = useState(false);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [redirect, setRedirect] = useState(undefined);
+  const networking = new Networking();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (redirect) navigate('/login')
-  }, [redirect])
+    if (redirect) navigate("/login");
+    //eslint-disable-next-line
+  }, [redirect]);
 
   useEffect(() => {
     async function getComments() {
-      updateComments()
+      updateComments();
     }
-    getComments()
-  }, [])
+    getComments();
+    //eslint-disable-next-line
+  }, []);
 
   async function updateComments() {
-    setComments(await networking.fetchComments(props.id))
+    setComments(await networking.fetchComments(props.id));
   }
 
   async function handleCommentSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (comment.length > 0) {
-      const redirect = await networking.postComment(props.id, comment)
-      setRedirect(redirect)
-      setComment('')
-      updateComments()
+      const redirect = await networking.postComment(props.id, comment);
+      setRedirect(redirect);
+      setComment("");
+      updateComments();
     }
   }
 
   function getCommentComponentList() {
     return comments.map((comment) => {
-      return <Comment key={comment.id} comment={comment} />
-    })
+      return <Comment key={comment.id} comment={comment} />;
+    });
   }
 
   return (
@@ -48,12 +50,12 @@ function Comments(props) {
         type="button"
         className="flex items-center font-sm self-start"
         onClick={() => {
-          setOpenComments(!openComments)
+          setOpenComments(!openComments);
         }}
       >
         <span className="hover:underline">Comments</span>
         <svg
-          className={`w-8 h-8 shrink-0 ${openComments ? 'rotate-180' : ''}`}
+          className={`w-8 h-8 shrink-0 ${openComments ? "rotate-180" : ""}`}
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,7 @@ function Comments(props) {
           ></path>
         </svg>
       </button>
-      <div className={openComments ? 'w-[80%] mt-2' : 'hidden'}>
+      <div className={openComments ? "w-[80%] mt-2" : "hidden"}>
         <form>
           {getCommentComponentList()}
           <div className="w-full flex items-center justify-center gap-5 mt-5">
@@ -75,7 +77,7 @@ function Comments(props) {
               value={comment}
               className="bg-gray-700 text-gray-200 rounded-lg w-[60%] px-2"
               onChange={(e) => {
-                setComment(e.target.value)
+                setComment(e.target.value);
               }}
             ></input>
             <button
@@ -88,7 +90,7 @@ function Comments(props) {
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Comments
+export default Comments;

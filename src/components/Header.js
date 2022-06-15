@@ -1,31 +1,30 @@
-import { Link } from 'react-router-dom'
-import Networking from '../networking.js'
-import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
+import Networking from "../networking.js";
+import { useState, useEffect } from "react";
 
 function Header(props) {
-  const [user, setUser] = useState('')
-  const networking = new Networking()
+  const [user, setUser] = useState("");
+  const networking = new Networking();
 
   useEffect(() => {
     async function getUserInfo() {
-      const userInfo = await networking.getUser()
-      setUser(userInfo)
+      const userInfo = await networking.getUser();
+      setUser(userInfo);
     }
-    getUserInfo()
-  }, [user])
+    getUserInfo();
+    // eslint-disable-next-line
+  }, [user]);
 
   async function handleLogout() {
-    await networking.logoutUser()
-    setUser('')
+    await networking.logoutUser();
+    setUser("");
   }
 
   return (
     <nav className=" border-b-[1px] border-gray-600 px-2 py-2.5 w-[85%] mt-3 mb-5">
       <div className="flex flex-wrap justify-between items-center mx-auto">
         <a href="https://google.com">
-          <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">
-            Social Network
-          </span>
+          <span className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white">Social Network</span>
         </a>
         <div className="flex gap-5">
           {user.length > 0 ? (
@@ -52,7 +51,7 @@ function Header(props) {
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Header
+export default Header;

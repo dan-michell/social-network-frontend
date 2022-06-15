@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import Networking from '../networking.js'
-import Header from './Header'
-import Story from './Story'
-import SortDropdown from './SortDropdown'
-import PostForm from './PostForm'
+import React, { useState, useEffect } from "react";
+import Networking from "../networking.js";
+import Header from "./Header";
+import Story from "./Story";
+import SortDropdown from "./SortDropdown";
+import PostForm from "./PostForm";
 
 function Home(props) {
-  const [stories, setStories] = useState([])
-  const [sort, setSort] = useState('total_votes DESC')
-  const networking = new Networking()
+  const [stories, setStories] = useState([]);
+  const [sort, setSort] = useState("total_votes DESC");
+  const networking = new Networking();
 
   useEffect(() => {
     async function getStories() {
-      updateStories()
+      updateStories();
     }
-    getStories()
-  }, [sort])
+    getStories();
+    // eslint-disable-next-line
+  }, [sort]);
 
   async function updateStories() {
-    setStories(await networking.fetchData(sort))
+    setStories(await networking.fetchData(sort));
+    console.log(stories);
   }
 
   function changeSort(sort) {
-    setSort(sort)
+    setSort(sort);
   }
 
   function getStoriesComponentList() {
-    return stories.map((story) => (
-      <Story key={story.id} story={story} updateStories={updateStories} />
-    ))
+    return stories.map((story) => <Story key={story.id} story={story} updateStories={updateStories} />);
   }
 
   return (
@@ -42,7 +42,7 @@ function Home(props) {
         {getStoriesComponentList()}
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
